@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${medicamento.NOMBRE_MEDICAMENTOS}">Detalle Medicamento</title>
+    <script src="https://kit.fontawesome.com/14122cd484.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/1.estilos_pagina_inicio.css}">
+    <link rel="stylesheet" th:href="@{/css/9.estilos_pagina_detalle.css}">
+</head>
+
+<body>
+<header th:insert="Layouts/header_footerPaciente :: header"></header>
+
+<main class="cuerpo_indrugs">
+    <div class="contenido">
+        <div class="contiene-img">
+            <img class="img_aspirina"
+                 th:src="@{'/imagenes/medicamentos/' + ${medicamento.imagenMedicamento}}"
+                 th:alt="${medicamento.nombreMedicamento}">
+
+            <div class="info-medicamento">
+                <h1 class="rexona" th:text="${medicamento.nombreMedicamento}">Nombre Medicamento</h1>
+                <p class="rexona" th:text="${medicamento.descripcionMedicamento}">Descripción del medicamento</p>
+
+                <label for="cantidad_solicitada">Elija la cantidad</label>
+                <input id="cantidad_solicitada" type="number" name="cantidad" min="1" max="10" required>
+
+                <a th:href="@{/domicilio/nuevo(idMedicamento=${medicamento.idMedicamento})}" id="boton_solicitar" class="btn btn-primary">Solicitar</a>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:insert="Layouts/header_footerPaciente :: footer"></footer>
+</body>
+</html>

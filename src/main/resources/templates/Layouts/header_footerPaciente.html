@@ -1,0 +1,95 @@
+<div th:fragment="header">
+    <header class="cabeza_indrugs">
+        <div class="contenedeor_cabeza logo_nav_items">
+            <a th:href="@{/index.html}" class="logo">
+                <img class="img_indrugs_logo" th:src="@{/imagenes/logo.png}" alt="Logo">Indrugs
+            </a>
+            <a href="#"><input type="search" placeholder="Buscar..." id="buscador"></a>
+            <nav class="navegacion_1">
+                <ul class="barra_1">
+                    <li id="items_barra1">
+                        <a th:href="@{/7.pagina_sobre_nosotros.html}" id="enlaces_barra1">
+                            <img id="iconos" th:src="@{/Iconos/ubicacion.png}" alt="Ubicación">
+                        </a>
+                    </li>
+                    <li id="items_barra1">
+                        <a th:href="@{/pacientes/8.pagina_med.html}" id="enlaces_barra1">
+                            <img id="iconos" th:src="@{/Iconos/compras.png}" alt="Compras">
+                        </a>
+                    </li>
+                    <li id="items_barra1">
+                        <a th:href="@{/2.pagina_inicio_sesion.html}" id="enlaces_barra1">
+                            <img id="iconos" th:src="@{/Iconos/icons8-cerrar-sesión-96.png}" alt="Cerrar sesión">
+                        </a>
+                    </li>
+                    <li id="items_barra1">
+                        <a th:href="@{/pacientes/5.pagina_pqrs.html}" id="enlaces_barra1">
+                            <img id="iconos" th:src="@{/Iconos/alerta.png}" alt="Alerta">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <hr class="linea_separación">
+        <div class="contenedeor_cabeza logo_nav_items">
+            <nav class="menu">
+                <ul class="barra_2">
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/pacientes/1.pagina_principal_paciente.html}">Inicio</a></li>
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/php/24.pagina_control.php}">Control</a></li>
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/pacientes/8.pagina_med.html}">Medicamentos</a></li>
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/pacientes/5.pagina_pqrs.html}">PQRS</a></li>
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/index.html}">Cerrar sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+        <hr class="linea_separación">
+    </header>
+</div>
+
+<div th:fragment="footer">
+    <footer class="pie-pagina">
+        <hr class="linea_separación">
+        <div class="grupo-1">
+
+            <div class="box">
+                <h2>Contáctanos</h2>
+                <hr class="linea_separación">
+                <p><i class="fa-solid fa-phone" style="color: #6bd10c;"></i> 601 6783 546 / 601 6789 564</p>
+                <p><i class="fa-brands fa-whatsapp" style="color: #6bd10c;"></i> Línea WhatsApp 327 678 5679</p>
+                <p><i class="fa-brands fa-facebook" style="color: #6bd10c;"></i> Facebook Indrugs</p>
+            </div>
+
+            <div class="box">
+                <h2>Nuestras tiendas</h2>
+                <hr class="linea_separación">
+                <p>Ubicar tienda</p>
+            </div>
+
+            <div class="box">
+                <h2>Categorías</h2>
+                <hr class="linea_separación">
+                <ul class="lista_mapa_nav">
+                    <li><a class="mapa_nav" th:href="@{/10.pagina_mapa_nav.html}">Mapa de navegación</a></li>
+                    <li><a class="mapa_nav" th:href="@{/404.html}">Error 404</a></li>
+                    <li><a class="mapa_nav" th:href="@{/500.html}">Error 500</a></li>
+                </ul>
+            </div>
+
+            <div class="box">
+                <h2>Nosotros</h2>
+                <hr class="linea_separación">
+                <ul class="lista_mapa_nav">
+                    <li><a class="mapa_nav" th:href="@{/7.pagina_sobre_nosotros.html}">Quiénes somos</a></li>
+                    <li><a class="mapa_nav" th:href="@{/7.pagina_sobre_nosotros.html}">Acerca del proyecto</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="grupo-2">
+            <hr class="linea_separación">
+            <small>DISPENSADORA DE MEDICAMENTOS InDrugs - La salud llega a tu puerta</small>
+            <hr class="linea_separación">
+        </div>
+    </footer>
+</div>
