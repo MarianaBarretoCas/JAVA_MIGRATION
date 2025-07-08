@@ -1,29 +1,28 @@
 <div th:fragment="header">
     <header class="cabeza_indrugs">
         <div class="contenedeor_cabeza logo_nav_items">
-            <a th:href="@{/index.html}" class="logo">
+            <a th:href="@{/index}" class="logo">
                 <img class="img_indrugs_logo" th:src="@{/imagenes/logo.png}" alt="Logo">Indrugs
             </a>
-            <a href="#"><input type="search" placeholder="Buscar..." id="buscador"></a>
             <nav class="navegacion_1">
                 <ul class="barra_1">
                     <li id="items_barra1">
-                        <a th:href="@{/7.pagina_sobre_nosotros.html}" id="enlaces_barra1">
+                        <a th:href="@{/7.pagina_sobre_nosotros}" id="enlaces_barra1">
                             <img id="iconos" th:src="@{/Iconos/ubicacion.png}" alt="Ubicación">
                         </a>
                     </li>
                     <li id="items_barra1">
-                        <a th:href="@{/pacientes/8.pagina_med.html}" id="enlaces_barra1">
+                        <a th:href="@{/pacientes/8.pagina_med}" id="enlaces_barra1">
                             <img id="iconos" th:src="@{/Iconos/compras.png}" alt="Compras">
                         </a>
                     </li>
                     <li id="items_barra1">
-                        <a th:href="@{/2.pagina_inicio_sesion.html}" id="enlaces_barra1">
+                        <a th:href="@{/cerrarSesion}" id="enlaces_barra1">
                             <img id="iconos" th:src="@{/Iconos/icons8-cerrar-sesión-96.png}" alt="Cerrar sesión">
                         </a>
                     </li>
                     <li id="items_barra1">
-                        <a th:href="@{/pacientes/5.pagina_pqrs.html}" id="enlaces_barra1">
+                        <a th:href="@{/pacientes/5.pagina_pqrs}" id="enlaces_barra1">
                             <img id="iconos" th:src="@{/Iconos/alerta.png}" alt="Alerta">
                         </a>
                     </li>
@@ -34,17 +33,26 @@
         <div class="contenedeor_cabeza logo_nav_items">
             <nav class="menu">
                 <ul class="barra_2">
-                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/pacientes/1.pagina_principal_paciente.html}">Inicio</a></li>
-                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/php/24.pagina_control.php}">Control</a></li>
-                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/pacientes/8.pagina_med.html}">Medicamentos</a></li>
-                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/pacientes/5.pagina_pqrs.html}">PQRS</a></li>
-                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/index.html}">Cerrar sesión</a></li>
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/1.pagina_principal_paciente}">Inicio</a></li>
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/24.pagina_control}">Control</a></li>
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/8.pagina_med}">Medicamentos</a></li>
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/5.pagina_pqrs}">PQRS</a></li>
+                    <li id="items_barra"><a id="enlaces_barra" th:href="@{/cerrarSesion}">Cerrar sesión</a></li>
                 </ul>
             </nav>
         </div>
         <hr class="linea_separación">
     </header>
 </div>
+<div th:fragment="error">
+    <div th:if="${mensaje}" class="alert alert-success" role="alert">
+        <span th:text="${mensaje}"></span>
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <span th:text="${error}"></span>
+    </div>
+</div>>
 
 <div th:fragment="footer">
     <footer class="pie-pagina">
@@ -69,9 +77,9 @@
                 <h2>Categorías</h2>
                 <hr class="linea_separación">
                 <ul class="lista_mapa_nav">
-                    <li><a class="mapa_nav" th:href="@{/10.pagina_mapa_nav.html}">Mapa de navegación</a></li>
-                    <li><a class="mapa_nav" th:href="@{/404.html}">Error 404</a></li>
-                    <li><a class="mapa_nav" th:href="@{/500.html}">Error 500</a></li>
+                    <li><a class="mapa_nav" th:href="@{/10.pagina_mapa_nav}">Mapa de navegación</a></li>
+                    <li><a class="mapa_nav" th:href="@{/404}">Error 404</a></li>
+                    <li><a class="mapa_nav" th:href="@{/500}">Error 500</a></li>
                 </ul>
             </div>
 
@@ -79,8 +87,8 @@
                 <h2>Nosotros</h2>
                 <hr class="linea_separación">
                 <ul class="lista_mapa_nav">
-                    <li><a class="mapa_nav" th:href="@{/7.pagina_sobre_nosotros.html}">Quiénes somos</a></li>
-                    <li><a class="mapa_nav" th:href="@{/7.pagina_sobre_nosotros.html}">Acerca del proyecto</a></li>
+                    <li><a class="mapa_nav" th:href="@{/7.pagina_sobre_nosotros}">Quiénes somos</a></li>
+                    <li><a class="mapa_nav" th:href="@{/7.pagina_sobre_nosotros}">Acerca del proyecto</a></li>
                 </ul>
             </div>
 

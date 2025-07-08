@@ -4,7 +4,6 @@
       <a href="#" class="logo">
         <img class="img_indrugs_logo" th:src="@{/imagenes/logo.png}" alt="Indrugs Logo">Indrugs
       </a>
-      <a href="#"><input type="search" placeholder="Buscar..." id="buscador"></a>
       <nav class="navegacion_1">
         <ul class="barra_1">
           <li id="items_barra1">
@@ -13,7 +12,7 @@
             </a>
           </li>
           <li id="items_barra1">
-            <a th:href="@{/2.pagina_inicio_sesion.html}" id="enlaces_barra1">
+            <a th:href="@{/cerrarSesion}" id="enlaces_barra1">
               <img id="iconos" th:src="@{/Iconos/icons8-cerrar-sesión-96.png}" alt="Cerrar sesión">
             </a>
           </li>
@@ -29,17 +28,26 @@
     <div class="contenedeor_cabeza logo_nav_items">
       <nav class="menu">
         <ul class="barra_2">
-          <li id="items_barra"><a th:href="@{/domiciliario/11.pagina_principal_domiciliario}" id="enlaces_barra">Inicio</a></li>
-          <li id="items_barra"><a th:href="@{/domiciliario/15.pagina_domicilio_domi}" id="enlaces_barra">Domicilio</a></li>
-          <li id="items_barra"><a th:href="@{/domiciliario/12.pagina_vehiculos}" id="enlaces_barra">Vehículos</a></li>
-          <li id="items_barra"><a th:href="@{/domiciliario/14.pagina_ordenes}" id="enlaces_barra">Órdenes</a></li>
-          <li id="items_barra"><a th:href="@{/index}" id="enlaces_barra">Cerrar sesión</a></li>
+          <li id="items_barra"><a th:href="@{/11.pagina_principal_domiciliario}" id="enlaces_barra">Inicio</a></li>
+          <li id="items_barra"><a th:href="@{/15.pagina_domicilio_domi}" id="enlaces_barra">Domicilio</a></li>
+          <li id="items_barra"><a th:href="@{/12.pagina_vehiculos}" id="enlaces_barra">Vehículos</a></li>
+          <li id="items_barra"><a th:href="@{/14.pagina_ordenes}" id="enlaces_barra">Órdenes</a></li>
+          <li id="items_barra"><a th:href="@{/cerrarSesion}" id="enlaces_barra">Cerrar sesión</a></li>
         </ul>
       </nav>
     </div>
     <hr class="linea_separación">
   </header>
 </div>
+<div th:fragment="error">
+  <div th:if="${mensaje}" class="alert alert-success" role="alert">
+    <span th:text="${mensaje}"></span>
+  </div>
+
+  <div th:if="${error}" class="alert alert-danger" role="alert">
+    <span th:text="${error}"></span>
+  </div>
+</div>>
 
 <div th:fragment="footer">
   <footer class="pie-pagina">

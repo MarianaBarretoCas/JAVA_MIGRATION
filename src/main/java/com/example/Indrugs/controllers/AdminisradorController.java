@@ -2,8 +2,11 @@ package com.example.Indrugs.controllers;
 
 import com.example.Indrugs.DTO.Usuario.UsuarioDTO;
 import com.example.Indrugs.DTO.Usuario.UsuarioUpdateDTO;
+import com.example.Indrugs.entities.Usuario;
 import com.example.Indrugs.mapper.UsuarioMapper;
+import com.example.Indrugs.services.InventarioService;
 import com.example.Indrugs.services.UsuarioService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,14 +22,22 @@ import java.util.Map;
 @RequestMapping
 public class AdminisradorController {
 
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
+    private final InventarioService inventarioService;
 
-    public AdminisradorController(UsuarioService usuarioService){
+    public AdminisradorController(UsuarioService usuarioService, InventarioService inventarioService){
         this.usuarioService = usuarioService;
+        this.inventarioService = inventarioService;
     }
 
     @GetMapping("/20.pagina_principal_administrador")
-    public String mostrarPaginaAdmin(Model model){
+    public String mostrarPaginaAdmin(HttpSession session, Model model){
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+        if (usuario == null) {
+            return "redirect:/login"; // si no está logueado
+        }
+
         //estadistica
         Map<String, Long> estadisticasUsuarios = usuarioService.obtenerResumenUsuarios();
         model.addAttribute("estadisticas", estadisticasUsuarios);
@@ -34,7 +45,7 @@ public class AdminisradorController {
         List<UsuarioDTO> usuariosRecientes = usuarioService.obtenerUsuariosRecientes();
         model.addAttribute("usuariosRecientes", usuariosRecientes);
 
-        model.addAttribute("cantidadInventario", 4L); // Temporal
+        model.addAttribute("cantidadInventario", inventarioService.totalUnidadesEnStock()); // Temporal
         model.addAttribute("cantidadOrdenes", 4L);
 
         return "administrador/20.pagina_principal_administrador";
@@ -44,7 +55,13 @@ public class AdminisradorController {
     public String gestionUsuarios(
             @RequestParam(required = false) String rol,
             @RequestParam(required = false) String estado,
+            HttpSession session,
             Model model) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+        if (usuario == null) {
+            return "redirect:/login"; // si no está logueado
+        }
 
         List<UsuarioDTO> usuarios;
 
@@ -67,13 +84,19 @@ public class AdminisradorController {
     }
 
     @GetMapping("/actualizar")
-    public String mostrarFormularioEdicion(@RequestParam Long idUsuario, Model model) {
+    public String mostrarFormularioEdicion(@RequestParam Long idUsuario, HttpSession session, Model model) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+        if (usuario == null) {
+            return "redirect:/login"; // si no está logueado
+        }
+
         try {
             // Obtener el usuario por ID
-            UsuarioDTO usuario = usuarioService.findById(idUsuario);
+            UsuarioDTO usuariodto = usuarioService.findById(idUsuario);
 
             // Convertir a UsuarioUpdateDTO para el formulario
-            UsuarioUpdateDTO usuarioUpdate = UsuarioMapper.toUpdateDTO(usuario);
+            UsuarioUpdateDTO usuarioUpdate = UsuarioMapper.toUpdateDTO(usuariodto);
 
             // Agregar al modelo
             model.addAttribute("usuario", usuarioUpdate);

@@ -12,14 +12,15 @@
 </head>
 
 <body>
-<!-- Header desde fragmento -->
 <div th:insert="Layouts/header_footerAdmin :: header"></div>
 
 <main class="cuerpo_indrugs">
+    <div th:insert="Layouts/header_footerAdmin :: error"></div>
     <div class="contenido">
         <h1 id="titulo_domicilio">Agregar medicamento</h1>
 
-        <form th:action="@{/administrador/guardar-medicamento}" method="post" enctype="multipart/form-data"
+        <form th:action="@{/guardar-medicamento}" method="post" enctype="multipart/form-data"
+              th:object="${medicamentoDTO}"
               id="formuno" class="row mt-3 g-3 needs-validation" novalidate>
 
             <div class="col-12">
@@ -38,7 +39,7 @@
 
             <div class="col-12">
                 <label for="imagen" class="form-label" id="form_text">Imagen del medicamento: </label>
-                <input type="file" id="imagen" name="imagenMedicamento" class="form-control" accept="image/*" required>
+                <input type="file" id="imagen" name="imagenFile" class="form-control" accept="image/*" required>
                 <div class="valid-feedback">BIEN.</div>
                 <div class="invalid-feedback">Por favor seleccione una imagen.</div>
             </div>
@@ -51,7 +52,6 @@
     </div>
 </main>
 
-<!-- Footer desde fragmento -->
 <div th:insert="Layouts/header_footerAdmin :: footer"></div>
 
 <script>

@@ -17,28 +17,137 @@
     <div class="contenido">
         <h1 class="titulo-medicamento">Medicamentos</h1>
 
-        <table class="tabla-completa">
-            <thead class="encabezado_tabla_img">
-            <tr>
-                <th colspan="3">Seleccione un medicamento</th>
-            </tr>
-            </thead>
-            <tbody class="cuerpo_tabla_img">
-            <!-- Muestra los medicamentos en fils -->
-            <tr th:each="fila : ${#lists.partition(medicamentos, 3)}">
-                <td class="contenido_body" th:each="medicamento : ${fila}">
-                    <a th:href="@{/medicamentos/{id}(id=${medicamento.idMedicamento})}">
-                        <img class="img_tabla"
-                             th:src="@{'/imagenes/medicamentos/' + ${medicamento.imagenMedicamento}}"
-                             th:alt="${medicamento.nombreMedicamento}" class="img_tabla">
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="search-container mb-4">
+            <div class="input-group">
+                <input type="search" placeholder="Buscar medicamentos..." id="buscador" class="form-control">
+                <button class="btn btn-outline-secondary" type="button" id="btnLimpiar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="mensaje-busqueda" class="mt-2" style="display: none;"></div>
+        </div>
+
+        <div class="medicamentos-grid" id="medicamentos-container">
+            <div th:each="medicamento : ${medicamentos}" class="medicamento-item">
+                <a th:href="@{/medicamentos/{idMedicamento}(idMedicamento=${medicamento.idMedicamento})}">
+                    <img class="img_tabla"
+                         th:src="@{${medicamento.imagenMedicamento}}"
+                         th:alt="${medicamento.nombreMedicamento}">
+                </a>
+            </div>
+        </div>
+
+        <div id="no-resultados" style="display: none;" class="text-center mt-4">
+            <h4>No se encontraron medicamentos</h4>
+            <p>Intenta con otros términos de búsqueda</p>
+        </div>
+
     </div>
 </main>
 
 <footer th:insert="Layouts/header_footerPaciente :: footer"></footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buscador = document.getElementById('buscador');
+        const btnLimpiar = document.getElementById('btnLimpiar');
+        const container = document.getElementById('medicamentos-container');
+        const mensajeBusqueda = document.getElementById('mensaje-busqueda');
+        const noResultados = document.getElementById('no-resultados');
+
+        let searchTimeout;
+        let medicamentosOriginales = [];
+
+        // Guardar medicamentos originales al cargar la página
+        function guardarMedicamentosOriginales() {
+            medicamentosOriginales = Array.from(container.children).map(child => child.cloneNode(true));
+        }
+
+        // Función para buscar medicamentos
+        function buscarMedicamentos() {
+            const termino = buscador.value.trim();
+
+            if (termino.length < 2) {
+                mostrarTodos();
+                return;
+            }
+
+            mensajeBusqueda.style.display = 'block';
+            mensajeBusqueda.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Buscando...';
+
+            fetch(`/api/medicamentos/buscar?nombre=${encodeURIComponent(termino)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    mostrarResultados(data);
+                    mensajeBusqueda.style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error en la búsqueda:', error);
+                    mensajeBusqueda.innerHTML = '<div class="alert alert-danger">Error al buscar medicamentos</div>';
+                });
+        }
+
+        // Función para mostrar resultados - Mantener estructura simple como el HTML original
+        function mostrarResultados(medicamentos) {
+            container.innerHTML = '';
+            noResultados.style.display = 'none';
+
+            if (medicamentos.length === 0) {
+                noResultados.style.display = 'block';
+                return;
+            }
+
+            medicamentos.forEach(medicamento => {
+                const medicamentoDiv = document.createElement('div');
+                medicamentoDiv.className = 'medicamento-item';
+                medicamentoDiv.innerHTML = `
+                    <a href="/medicamentos/${medicamento.idMedicamento}">
+                        <img class="img_tabla"
+                             src="${medicamento.imagenMedicamento}"
+                             alt="${medicamento.nombreMedicamento}">
+                    </a>
+                `;
+                container.appendChild(medicamentoDiv);
+            });
+        }
+
+        // Función para mostrar todos los medicamentos
+        function mostrarTodos() {
+            container.innerHTML = '';
+            noResultados.style.display = 'none';
+            mensajeBusqueda.style.display = 'none';
+
+            medicamentosOriginales.forEach(medicamento => {
+                container.appendChild(medicamento.cloneNode(true));
+            });
+        }
+
+        // Event listeners
+        buscador.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(buscarMedicamentos, 300);
+        });
+
+        buscador.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                clearTimeout(searchTimeout);
+                buscarMedicamentos();
+            }
+        });
+
+        btnLimpiar.addEventListener('click', function() {
+            buscador.value = '';
+            mostrarTodos();
+        });
+
+        // Inicializar medicamentos originales
+        guardarMedicamentosOriginales();
+    });
+</script>
 </body>
 </html>

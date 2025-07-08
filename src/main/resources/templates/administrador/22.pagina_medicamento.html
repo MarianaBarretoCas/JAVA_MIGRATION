@@ -14,6 +14,7 @@
 <header th:insert="Layouts/header_footerAdmin :: header"></header>
 
 <main class="cuerpo_indrugs">
+    <div th:insert="Layouts/header_footerAdmin :: error"></div>
     <div class="contenido">
         <h1 class="tabla_usuarios">Medicamentos</h1>
 
@@ -40,7 +41,7 @@
             <p>No hay datos.</p>
         </div>
 
-        <a th:href="@{/administrador/23.agregar_medicamentos}">
+        <a th:href="@{/23.agregar_medicamentos}">
             <button class="btn btn-primary">Agregar medicamento</button>
         </a>
     </div>

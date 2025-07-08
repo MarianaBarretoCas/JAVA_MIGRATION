@@ -11,74 +11,75 @@
 </head>
 
 <body>
-	<header th:insert="Layouts/header_footerAdmin :: header"></header>
+<header th:insert="Layouts/header_footerAdmin :: header"></header>
 
-	<main class="cuerpo_indrugs">
-		<div class="contenido">
-			<h1 class="tabla_usuarios">USUARIOS</h1>
+<main class="cuerpo_indrugs">
+	<div th:insert="Layouts/header_footerAdmin :: error"></div>
+	<div class="contenido">
+		<h1 class="tabla_usuarios">USUARIOS</h1>
 
-			<form method="get" th:action="@{/21.pagina_usuarios}" id="filtros" class="row mt-3 g-3 needs-validation">
-				<section class="filtrar-usuarios">
-					<label for="rol">Filtro por rol:</label>
-					<select name="rol" id="rol">
-						<option value="">Todos</option>
-						<option value="Administrador" th:selected="${rolSeleccionado == 'Administrador'}">Administrador</option>
-						<option value="Paciente" th:selected="${rolSeleccionado == 'Paciente'}">Paciente</option>
-						<option value="Domiciliario" th:selected="${rolSeleccionado == 'Domiciliario'}">Domiciliario</option>
-					</select>
+		<form method="get" th:action="@{/21.pagina_usuarios}" id="filtros" class="row mt-3 g-3 needs-validation">
+			<section class="filtrar-usuarios">
+				<label for="rol">Filtro por rol:</label>
+				<select name="rol" id="rol">
+					<option value="">Todos</option>
+					<option value="Administrador" th:selected="${rolSeleccionado == 'Administrador'}">Administrador</option>
+					<option value="Paciente" th:selected="${rolSeleccionado == 'Paciente'}">Paciente</option>
+					<option value="Domiciliario" th:selected="${rolSeleccionado == 'Domiciliario'}">Domiciliario</option>
+				</select>
 
-					<label for="estado">Estado:</label>
-					<select name="estado" id="estado">
-						<option value="">Todos</option>
-						<option value="ACTIVO" th:selected="${estadoSeleccionado == 'ACTIVO'}">Activo</option>
-						<option value="INACTIVO" th:selected="${estadoSeleccionado == 'INACTIVO'}">Inactivo</option>
-					</select>
+				<label for="estado">Estado:</label>
+				<select name="estado" id="estado">
+					<option value="">Todos</option>
+					<option value="ACTIVO" th:selected="${estadoSeleccionado == 'ACTIVO'}">Activo</option>
+					<option value="INACTIVO" th:selected="${estadoSeleccionado == 'INACTIVO'}">Inactivo</option>
+				</select>
 
-					<button type="submit" class="butn_filtro">Filtrar</button>
-				</section>
-			</form>
+				<button type="submit" class="butn_filtro">Filtrar</button>
+			</section>
+		</form>
 
-			<div th:if="${usuarios != null and !usuarios.isEmpty()}">
-				<table id="tabla1" class="table">
-					<thead class="table-dark">
-					<tr>
-						<th>Rol</th>
-						<th>Nombre</th>
-						<th>Tipo de documento</th>
-						<th>Número de documento</th>
-						<th>Dirección</th>
-						<th>Teléfono</th>
-						<th>Correo</th>
-						<th>Estado</th>
-						<th>Editar</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr th:each="usuario : ${usuarios}">
-						<td th:text="${usuario.nombreRol}"></td>
-						<td th:text="${usuario.nombre}"></td>
-						<td th:text="${usuario.tipoDoc}"></td>
-						<td th:text="${usuario.numDoc}"></td>
-						<td th:text="${usuario.direccion}"></td>
-						<td th:text="${usuario.telefono}"></td>
-						<td th:text="${usuario.correo}"></td>
-						<td th:text="${usuario.estado}"></td>
-						<td>
-							<a th:href="@{'/actualizar?idUsuario=' + ${usuario.idUsuario}}">
-								<button class="btn btn-primary">Editar</button>
-							</a>
-						</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-
-			<div th:if="${usuarios == null or usuarios.isEmpty()}">
-				<p>No hay usuarios registrados.</p>
-			</div>
+		<div th:if="${usuarios != null and !usuarios.isEmpty()}">
+			<table id="tabla1" class="table">
+				<thead class="table-dark">
+				<tr>
+					<th>Rol</th>
+					<th>Nombre</th>
+					<th>Tipo de documento</th>
+					<th>Número de documento</th>
+					<th>Dirección</th>
+					<th>Teléfono</th>
+					<th>Correo</th>
+					<th>Estado</th>
+					<th>Editar</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="usuario : ${usuarios}">
+					<td th:text="${usuario.nombreRol}"></td>
+					<td th:text="${usuario.nombre}"></td>
+					<td th:text="${usuario.tipoDoc}"></td>
+					<td th:text="${usuario.numDoc}"></td>
+					<td th:text="${usuario.direccion}"></td>
+					<td th:text="${usuario.telefono}"></td>
+					<td th:text="${usuario.correo}"></td>
+					<td th:text="${usuario.estado}"></td>
+					<td>
+						<a th:href="@{'/actualizar?idUsuario=' + ${usuario.idUsuario}}">
+							<button class="btn btn-primary">Editar</button>
+						</a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
 		</div>
-	</main>
 
-	<footer th:insert="Layouts/header_footerAdmin :: footer"></footer>
+		<div th:if="${usuarios == null or usuarios.isEmpty()}">
+			<p>No hay usuarios registrados.</p>
+		</div>
+	</div>
+</main>
+
+<footer th:insert="Layouts/header_footerAdmin :: footer"></footer>
 </body>
 </html>

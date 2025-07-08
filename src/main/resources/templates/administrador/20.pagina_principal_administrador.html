@@ -15,12 +15,13 @@
 <header th:insert="Layouts/header_footerAdmin :: header"></header>
 
 <main class="cuerpo_indrugs">
+    <div th:insert="Layouts/header_footerAdmin :: error"></div>
     <div class="contenido">
         <section class="dashboard">
             <div class="cards">
 
                 <div class="card">
-                    <a th:href="@{/inventario}">
+                    <a th:href="@{/17.pagina_inventario}">
                         <div>
                             <span class="card_numeros" th:text="${cantidadInventario}">0</span><br>
                             <span class="card_nombre">Inventario</span>
@@ -42,7 +43,7 @@
                     </a>
                 </div>
                 <div class="card">
-                    <a th:href="@{/ordenes}">
+                    <a th:href="@{/18.pagina}">
                         <div>
                             <span class="card_numeros" th:text="${cantidadOrdenes}">0</span><br>
                             <span class="card_nombre">Órdenes</span>
