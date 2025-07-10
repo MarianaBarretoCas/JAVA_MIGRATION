@@ -17,7 +17,7 @@ public class Vehiculo {
 
     @ManyToOne
     @JoinColumn(name = "PROPIETARIO_USUARIOS")
-    private Usuario propietario;
+    private Usuario idPropietario;
 
     @Column(name = "TIPO_VEHICULO")
     private String tipoVehiculo;
