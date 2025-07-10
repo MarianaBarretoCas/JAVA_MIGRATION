@@ -17,13 +17,13 @@
     <div class="contenido">
         <h1>Agregar vehículo</h1>
 
-        <form th:action="@{/domiciliario/vehiculos/agregar}"
+        <form th:action="@{/agregar_vehiculo}"
               method="post"
               th:object="${vehiculo}"
               class="row mt-3 g-3 needs-validation" novalidate>
 
             <!-- Propietario logueado -->
-            <input type="hidden" th:field="*{propietario.idUsuario}" th:value="${usuarioLogueado.idUsuario}" />
+            <input type="hidden" name="idUsuario" th:value="${usuarioLogueado.idUsuario}" />
 
             <div class="col-12 mt-2 mb-2">
                 <label for="tipoVehiculo" class="form-label">Tipo de vehículo:</label>

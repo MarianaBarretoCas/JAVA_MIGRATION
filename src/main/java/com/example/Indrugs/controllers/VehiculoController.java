@@ -1,13 +1,12 @@
 package com.example.Indrugs.controllers;
 
 import com.example.Indrugs.DTO.VehiculoDTO;
+import com.example.Indrugs.entities.Usuario;
 import com.example.Indrugs.services.VehiculoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -23,20 +22,31 @@ public class VehiculoController {
     }
 
     @GetMapping("/12.pagina_vehiculos")
-    public String mostrarPaginaVehiculos(Model model) {
-        List<VehiculoDTO> vehiculos = vehiculoService.read();
+    public String mostrarPaginaVehiculos(Model model,HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+        if (usuario == null) {
+            return "redirect:/login"; // Si no está logueado
+        }
+        List<VehiculoDTO> vehiculos = vehiculoService.read(usuario.getIdUsuario());
         model.addAttribute("vehiculos", vehiculos);
-        return "administrador/12.pagina_vehiculos";
+        return "domiciliario/12.pagina_vehiculos";
     }
 
-    @GetMapping("/agregar_vehiculo")
-    public String mostrarFormularioAgregar(Model model) {
+    @GetMapping("13_pagina_agregar_vehiculo")
+    public String mostrarFormularioAgregar(Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+        if (usuario == null) {
+            return "redirect:/login"; // Si no está logueado
+        }
+        model.addAttribute("usuarioLogueado",  usuario);
         model.addAttribute("vehiculo", new VehiculoDTO());
-        return "administrador/agregar_vehiculo";
+        return "domiciliario/13_pagina_agregar_vehiculo";
     }
 
     @PostMapping("/agregar_vehiculo")
-    public String agregarVehiculo(VehiculoDTO vehiculoDTO, RedirectAttributes redirectAttributes) {
+    public String agregarVehiculo(@ModelAttribute VehiculoDTO vehiculoDTO, RedirectAttributes redirectAttributes) {
         try {
             vehiculoService.crear(vehiculoDTO);
             redirectAttributes.addFlashAttribute("mensaje", "Vehículo agregado correctamente");

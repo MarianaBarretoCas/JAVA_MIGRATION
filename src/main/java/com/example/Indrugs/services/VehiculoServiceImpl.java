@@ -23,9 +23,9 @@ public class VehiculoServiceImpl implements VehiculoService {
     }
 
     @Override
-    public List<VehiculoDTO> read() {
-        List<Vehiculo> vehiculos = vehiculoRepository.findAll();
-        return vehiculos.stream()
+    public List<VehiculoDTO> read(Long IdUsuario) {
+
+        return vehiculoRepository.findByIdPropietario_IdUsuario(IdUsuario).stream()
                 .map(VehiculoMapper::mapToDto)
                 .collect(Collectors.toList());
     }

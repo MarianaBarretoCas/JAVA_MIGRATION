@@ -17,7 +17,7 @@
     <div class="contenido">
         <h1>Vehículos</h1>
 
-        <div th:if="${vehiculos != null and #lists.isNotEmpty(vehiculos)}">
+        <div th:if="${vehiculos != null and !vehiculos.isEmpty()}">
             <table id="tabla1" class="table">
                 <thead class="table-dark">
                 <tr>
@@ -33,11 +33,13 @@
                 <tbody>
                 <tr th:each="vehiculo : ${vehiculos}">
                     <td th:text="${vehiculo.idVehiculo}"></td>
-                    <td th:text="${vehiculo.idPropietario}"></td>
+                    <td th:text="${vehiculo.nombreUsuario}"></td>
                     <td th:text="${vehiculo.tipoVehiculo}"></td>
                     <td th:text="${vehiculo.placaVehiculo}"></td>
                     <td th:text="${vehiculo.colorVehiculo}"></td>
                     <td th:text="${vehiculo.marcaVehiculo}"></td>
+                    <td th:text="${vehiculo.estadoVehiculo}"></td>
+
                 </tr>
                 </tbody>
             </table>
@@ -46,7 +48,7 @@
             <p>No hay datos.</p>
         </div>
 
-        <a th:href="@{/13_pagina_agregar_vehiculo.html}"><button class="btn btn-primary">Agregar vehículo</button></a>
+        <a th:href="@{/13_pagina_agregar_vehiculo}"><button class="btn btn-primary">Agregar vehículo</button></a>
     </div>
 </main>
 

@@ -12,8 +12,11 @@ public class VehiculoMapper {
             return null;
         }
         VehiculoDTO dto = new VehiculoDTO();
+        if (vehiculo.getIdPropietario() != null) {
+            dto.setIdUsuario(vehiculo.getIdPropietario().getIdUsuario());
+            dto.setNombreUsuario(vehiculo.getIdPropietario().getNombre());
+        }
         dto.setIdVehiculo(vehiculo.getIdVehiculo());
-        dto.setIdPropietario(vehiculo.getIdPropietario().getIdUsuario());
         dto.setTipoVehiculo(vehiculo.getTipoVehiculo());
         dto.setPlacaVehiculo(vehiculo.getPlacaVehiculo());
         dto.setMarcaVehiculo(vehiculo.getMarcaVehiculo());
@@ -29,7 +32,8 @@ public class VehiculoMapper {
         }
         Vehiculo vehiculo = new Vehiculo();
         Usuario IdPropietario = new Usuario();
-        IdPropietario.setIdUsuario(dto.getIdPropietario());
+        IdPropietario.setIdUsuario(dto.getIdUsuario());
+
         vehiculo.setIdPropietario(IdPropietario);
         vehiculo.setIdVehiculo(dto.getIdVehiculo());
         vehiculo.setTipoVehiculo(dto.getTipoVehiculo());
