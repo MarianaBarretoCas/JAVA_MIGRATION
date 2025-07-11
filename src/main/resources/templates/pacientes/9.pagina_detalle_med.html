@@ -27,13 +27,26 @@
 
                 <label for="cantidad_solicitada">Elija la cantidad</label>
                 <input id="cantidad_solicitada" type="number" name="cantidad" min="1" max="10" required>
-
-                <a th:href="@{/domicilio/nuevo(idMedicamento=${medicamento.idMedicamento}, cantidad=${cantidad})}" id="boton_solicitar" class="btn btn-primary">Solicitar</a>
+                <button id="boton_solicitar" class="btn btn-primary">Solicitar</button>
             </div>
         </div>
     </div>
 </main>
 
 <footer th:insert="Layouts/header_footerPaciente :: footer"></footer>
+<script>
+    document.getElementById('boton_solicitar').addEventListener('click', function() {
+        const cantidad = document.getElementById('cantidad_solicitada').value;
+        const idMedicamento = [[${medicamento.idMedicamento}]];
+
+        if (cantidad < 1 || cantidad > 10) {
+            alert('Por favor, seleccione una cantidad entre 1 y 10');
+            return;
+        }
+
+        // Redirigir con los parámetros
+        window.location.href = `/nuevo?idMedicamento=${idMedicamento}&cantidad=${cantidad}`;
+    });
+</script>
 </body>
 </html>

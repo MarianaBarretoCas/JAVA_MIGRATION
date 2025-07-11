@@ -78,7 +78,7 @@
                         <tr class="table" id="cuerpo_tabla2" th:each="orden : ${ordenesRecientes}">
                             <td colspan="5" class="text-center">
                             <td th:text="${orden.idOrden}">ID</td>
-                            <td th:text="${orden.pacienteNombre}">Usuario</td>
+                            <td th:text="${orden.paciente}">Usuario</td>
                             <td th:text="${orden.fechaEntrega}">FechaEntregaOrden</td>
                             <td th:text="${orden.estadoOrden}">Estado</td>
                             </td>

@@ -3,6 +3,7 @@ package com.example.Indrugs.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Orden {
     private String epsOrden;
 
     @Column(name = "TELEFONO_ORDEN")
-    private Integer telefonoOrden;
+    private String telefonoOrden;
 
     @Column(name = "FECHA_ENTREGA")
     private LocalDateTime fechaEntrega;
@@ -39,7 +40,9 @@ public class Orden {
     @Column(name = "ESTADO_ORDEN")
     private String estadoOrden;
 
-    // Relación con la tabla ordenes_has_medicamentos
+    @Column(name ="FORMULA_MEDICA")
+    private String formulaMedica;
+
     @ManyToMany
     @JoinTable(
             name = "ordenes_has_medicamentos",

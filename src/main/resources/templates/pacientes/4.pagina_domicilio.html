@@ -21,44 +21,48 @@
     <div class="contenido">
         <h1 id="titulo_domicilio">Registrar Domicilio</h1>
 
-        <form th:action="@{/domicilio/guardar}" method="post" enctype="multipart/form-data"
-              class="row mt-3 g-3 needs-validation" novalidate th:object="${domicilio}">
+        <form th:action="@{/guardar}" method="post" enctype="multipart/form-data"
+              class="row mt-3 g-3 needs-validation" novalidate th:object="${orden}" >
 
-            <!-- Paciente logueado -->
-            <input type="hidden" th:field="*{paciente.idUsuario}" th:value="${usuarioLogueado.idUsuario}" /> //revisar nombre logueado
-
-            <!-- Medicamento que viene por URL -->
-            <input type="hidden" th:field="*{medicamento.idMedicamento}" th:value="${idMedicamento}" />
+            <input type="hidden" th:field="*{paciente}" th:value="${usuarioLogueado.idUsuario}" />
+            <input type="hidden" name="idMedicamento" th:value="${medicamento.idMedicamento}"/>
+<!--            <input type="hidden" th:field="*{idMedicamento}" th:value="${medicamento.idMedicamento}" />-->
+            <input type="hidden" th:field="*{pacienteNombre}" />
+            <input type="hidden" th:field="*{nombreMedicamento}" />
+            <input type="hidden" th:field="*{cantidad}" />
+            <input type="hidden" th:field="*{estadoOrden}" />
 
             <div class="col-12">
                 <label for="eps">EPS:</label>
-                <input type="text" id="eps" th:field="*{eps}" class="form-control" required />
+                <input type="text" id="eps" th:field="*{epsOrden}" class="form-control" required />
             </div>
 
             <div class="col-12">
                 <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" th:field="*{direccionEntrega}" class="form-control" required />
+                <input type="text" id="direccion" th:field="*{direccionOrden}" class="form-control" required />
             </div>
 
             <div class="col-12">
                 <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" th:field="*{telefono}" class="form-control" required />
+                <input type="tel" id="telefono" th:field="*{telefonoOrden}" class="form-control" required />
             </div>
 
-            <div class="col-12">
-                <label for="cantidad">Cantidad:</label>
-                <input type="number" id="cantidad" th:field="*{cantidad}" class="form-control" required />
-            </div>
+<!--            <div class="col-12">-->
+<!--                <label for="cantidad">Cantidad:</label>-->
+<!--                <input type="number" id="cantidad" th:field="*{cantidad}" class="form-control" required />-->
+<!--            </div>-->
 
             <div class="col-12">
                 <label for="fecha">Fecha Entrega:</label>
-                <input type="datetime-local" id="fecha" th:field="*{fechaDomicilio}" class="form-control" required />
+                <input type="datetime-local" id="fecha" th:field="*{fechaEntrega}" class="form-control" required />
             </div>
 
-            <div class="col-12">
-                <label for="formulaMedica">Fórmula Médica:</label>
-                <input type="file" id="formulaMedica" th:field="*{formulaMedica}" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required />
-            </div>
+<!--            <div class="col-12">-->
+<!--                <label for="formulaMedica">Fórmula Médica:</label>-->
+<!--                <input type="file" id="formulaMedica" name="formulaFile" accept=".pdf,.jpg,.jpeg,.png" required/>-->
+
+<!--&lt;!&ndash;                <input type="file" id="formulaMedica" th:field="*{formulaMedica}" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required />&ndash;&gt;-->
+<!--            </div>-->
 
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Enviar Solicitud</button>

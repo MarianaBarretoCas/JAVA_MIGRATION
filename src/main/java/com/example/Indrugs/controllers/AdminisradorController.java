@@ -5,6 +5,7 @@ import com.example.Indrugs.DTO.Usuario.UsuarioUpdateDTO;
 import com.example.Indrugs.entities.Usuario;
 import com.example.Indrugs.mapper.UsuarioMapper;
 import com.example.Indrugs.services.InventarioService;
+import com.example.Indrugs.services.OrdenService;
 import com.example.Indrugs.services.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -24,10 +25,12 @@ public class AdminisradorController {
 
     private final UsuarioService usuarioService;
     private final InventarioService inventarioService;
+    private final OrdenService ordenService;
 
-    public AdminisradorController(UsuarioService usuarioService, InventarioService inventarioService){
+    public AdminisradorController(UsuarioService usuarioService, InventarioService inventarioService,OrdenService ordenService){
         this.usuarioService = usuarioService;
         this.inventarioService = inventarioService;
+        this.ordenService = ordenService;
     }
 
     @GetMapping("/20.pagina_principal_administrador")
@@ -45,8 +48,11 @@ public class AdminisradorController {
         List<UsuarioDTO> usuariosRecientes = usuarioService.obtenerUsuariosRecientes();
         model.addAttribute("usuariosRecientes", usuariosRecientes);
 
-        model.addAttribute("cantidadInventario", inventarioService.totalUnidadesEnStock()); // Temporal
-        model.addAttribute("cantidadOrdenes", 4L);
+        model.addAttribute("cantidadInventario", inventarioService.totalUnidadesEnStock());
+        Map<String,Object> dashboard=ordenService.ObtenerResumenOrden();
+        model.addAttribute("ordenesRecientes",dashboard.get("ordenesRecientes"));
+        model.addAttribute("cantidadOrdenes",dashboard.get("totalOrdenesActivos"));
+
 
         return "administrador/20.pagina_principal_administrador";
     }

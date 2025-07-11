@@ -33,12 +33,5 @@ public class Domicilio {
     @JoinColumn(name = "ID_ORDENES")
     private Orden orden;
 
-    @Column(name = "FORMULA_MEDICA")
-    private String formulaMedica;
 
-    @Column(name = "EPS_DOMICILIO")
-    private String epsDomicilio;
-
-    @Column(name = "TELEFONO_DOMICILIO")
-    private String telefonoDomicilio;
 }

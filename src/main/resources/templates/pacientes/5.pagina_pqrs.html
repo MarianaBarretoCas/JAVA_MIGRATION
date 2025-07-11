@@ -18,13 +18,14 @@
         <h2 class="solicitud">Enviar una solicitud</h2>
         <h3 class="solicitud">Todos los campos son obligatorios</h3>
 
-
-        <form method="post" th:action="@{/paciente/guardar-pqrs}"
+        <!-- Corrección: Se eliminó "/paciente" del action -->
+        <form method="post" th:action="@{/guardar-pqrs}"
               th:object="${pqrs}"
               class="row mx-auto mt-3 g-3 needs-validation" novalidate>
 
             <!-- Usuario logueado -->
-            <input type="hidden" th:field="*{usuario.idUsuario}" th:value="${usuarioLogueado.idUsuario}" />
+            <input type="hidden" th:field="*{usuarioid}" th:value="${usuarioLogueado.idUsuario}" />
+
             <h4 class="solicitud">Elija un tipo de solicitud a continuación...</h4>
             <div class="col-12">
                 <label for="tipoPqrs" class="form-label">Tipo:</label>
@@ -45,6 +46,9 @@
                 <div class="valid-feedback">Correcto.</div>
                 <div class="invalid-feedback">Por favor ingrese su motivo.</div>
             </div>
+
+            <!-- Mostrar mensaje de éxito -->
+            <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
 
             <div class="col-12">
                 <button class="btn btn-primary" type="submit">Enviar PQRS</button>

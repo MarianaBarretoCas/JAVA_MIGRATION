@@ -1,0 +1,17 @@
+package com.example.Indrugs.services;
+
+import com.example.Indrugs.DTO.OrdenDTO;
+
+import java.util.List;
+import java.util.Map;
+
+public interface OrdenService {
+    List<OrdenDTO> listarOrdenes();
+    void marcarComoEntregada(Long idOrden);
+    void crear (OrdenDTO ordenDTO,Long idUsuario,Long idMedicameto);
+    void eliminar (Long idOrden);
+    long countOrdenActivo();
+    List<OrdenDTO> ObtenerOrdenesRecientes();
+    Map<String,Object> ObtenerResumenOrden();
+
+}
