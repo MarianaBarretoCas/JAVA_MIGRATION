@@ -1,4 +1,20 @@
 package com.example.Indrugs.DTO;
 
-public class DomicilioDTO {
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Getter
+    @Setter
+    public class DomicilioDTO {
+        private Long idDomicilio;
+        private String ubicacionDomicilio;
+        private String estadoDomicilio;
+        private LocalDateTime fechaEntregaDomicilio;
+        private Long idVehiculo;
+        private Long idOrden;
+        private Integer telefonoOrden;
+        private String formulaMedica;
 }
+

@@ -33,5 +33,4 @@ public class Domicilio {
     @JoinColumn(name = "ID_ORDENES")
     private Orden orden;
 
-
 }

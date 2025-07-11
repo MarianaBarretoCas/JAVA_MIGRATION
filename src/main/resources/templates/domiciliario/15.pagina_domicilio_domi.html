@@ -27,9 +27,7 @@
                     <th>Vehículo</th>
                     <th>Orden</th>
                     <th>Estado</th>
-                    <th>EPS</th>
                     <th>Teléfono</th>
-                    <th>Fórmula Médica</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -38,17 +36,19 @@
                     <td th:text="${domicilio.idDomicilio}"></td>
                     <td th:text="${domicilio.ubicacionDomicilio}"></td>
                     <td th:text="${#temporals.format(domicilio.fechaEntregaDomicilio, 'yyyy-MM-dd HH:mm')}"></td>
-                    <td th:text="${domicilio.vehiculo.placaVehiculo}"></td>
-                    <td th:text="${domicilio.orden.idOrden}"></td>
+                    <td th:text="${domicilio.idVehiculo}"></td>
+                    <td th:text="${domicilio.idOrden}"></td>
                     <td th:text="${domicilio.estadoDomicilio}"></td>
-                    <td th:text="${domicilio.epsDomicilio}"></td>
-                    <td th:text="${domicilio.telefonoDomicilio}"></td>
-                    <td>
-                        <a th:href="@{'/formularios/' + ${domicilio.formulaMedica}}" target="_blank">Ver</a>
-                    </td>
+<!--                    <td th:text="${domicilio.telefonoDomicilio}"></td>-->
+                    <td>telefono</td>
                     <td>
                         <a th:href="@{/domicilios/eliminar/{id}(id=${domicilio.idDomicilio})}" class="btn btn-danger">Eliminar</a>
                     </td>
+                    <td th:text="${domicilio.estadoDomicilio}"></td>
+                    <td>
+                        <a th:href="@{/actualizar/domicilio/{idDomicilio}(idDomicilio=${domicilio.idDomicilio})}" class="btn btn-success">Entregar</a>
+                        <!--&lt;!&ndash;                    </td>-->
+                </tr>
                 </tr>
                 </tbody>
             </table>
