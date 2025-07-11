@@ -35,10 +35,10 @@
         <section class="dashboard">
             <div class="cards">
                 <div class="card">
-                    <a th:href="@{/domiciliario/15.pagina_domicilio_domi}">
+                    <a th:href="@{/15.pagina_domicilio_domi}">
                         <div>
-                            <span class="card_numeros">4</span><br>
-                            <span class="card_nombre">Domicilios</span>
+                            <h2 th:text="${totalDomiciliosActivos}">0</h2>
+                            <p>Domicilios Activos</p>
                         </div>
                         <div class="card_icono">
                             <img th:src="@{/Iconos/icons8-entrega-puerta-a-puerta-100.png}" alt="Domicilios">
@@ -46,7 +46,7 @@
                     </a>
                 </div>
                 <div class="card">
-                    <a th:href="@{/domiciliario/php/12.pagina_vehiculos}">
+                    <a th:href="@{/12.pagina_vehiculos}">
                         <div>
                             <span class="card_numeros">3</span><br>
                             <span class="card_nombre">Vehículos</span>
@@ -57,7 +57,7 @@
                     </a>
                 </div>
                 <div class="card">
-                    <a th:href="@{/domiciliario/php/14.pagina_ordenes}">
+                    <a th:href="@{/14.pagina_ordenes}">
                         <div>
                             <span class="card_numeros">4</span><br>
                             <span class="card_nombre">Órdenes</span>
@@ -73,7 +73,7 @@
                 <div class="ordenes_recientes">
                     <div class="cabeza1">
                         <h2>Órdenes recientes</h2>
-                        <a th:href="@{/domiciliario/php/14.pagina_ordenes}">
+                        <a th:href="@{/14.pagina_ordenes}">
                             <input class="botonD" type="button" value="VER TODO">
                         </a>
                     </div>
@@ -119,7 +119,7 @@
                 <div class="domicilio">
                     <div class="cabeza1">
                         <h2>Domicilios recientes</h2>
-                        <a th:href="@{/domiciliario/15.pagina_domicilio_domi}">
+                        <a th:href="@{/15.pagina_domicilio_domi}">
                             <input class="botonD" type="button" value="VER TODO">
                         </a>
                     </div>
@@ -133,29 +133,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="table" id="cuerpo_tabla2">
-                            <td>01</td>
-                            <td>Calle 10 # 12-45</td>
-                            <td>2024-11-04 17:36:29</td>
-                            <td>
-                                <select name="estado" id="estado_vehi" class="form-select">
-                                    <option value="1">En Camino</option>
-                                    <option value="2">En Espera</option>
-                                    <option value="3">Entregado</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>02</td>
-                            <td>Avenida 5 # 67-89</td>
-                            <td>2024-11-04 14:36:35</td>
-                            <td>
-                                <select name="estado" id="estado_vehi" class="form-select">
-                                    <option value="1">En Camino</option>
-                                    <option value="2">En Espera</option>
-                                    <option value="3">Entregado</option>
-                                </select>
-                            </td>
+                        <tr class="table" id="cuerpo_tabla2" th:each="domicilio : ${domiciliosRecientes}">
+                            <td th:text="${domicilio.idDomicilio}">ID</td>
+                            <td th:text="${domicilio.ubicacionDomicilio}">Ubicación</td>
+                            <td th:text="${domicilio.fechaEntregaDomicilio}">FechaEntregaDomicilio</td>
+                            <td th:text="${domicilio.estadoDomicilio}">Estado</td>
                         </tr>
                         </tbody>
                     </table>
