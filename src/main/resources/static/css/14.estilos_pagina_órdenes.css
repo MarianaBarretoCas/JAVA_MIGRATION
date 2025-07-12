@@ -20,3 +20,7 @@ h1{
     margin-bottom: 3%;
     font-family: Quicksand;
 }
+
+.listado_medicamentos{
+    text-decoration:none;
+}

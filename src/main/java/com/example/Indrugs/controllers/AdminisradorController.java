@@ -1,5 +1,6 @@
 package com.example.Indrugs.controllers;
 
+import com.example.Indrugs.DTO.OrdenDTO;
 import com.example.Indrugs.DTO.Usuario.UsuarioDTO;
 import com.example.Indrugs.DTO.Usuario.UsuarioUpdateDTO;
 import com.example.Indrugs.entities.Usuario;
@@ -49,8 +50,12 @@ public class AdminisradorController {
         model.addAttribute("usuariosRecientes", usuariosRecientes);
 
         model.addAttribute("cantidadInventario", inventarioService.totalUnidadesEnStock());
+        
+        List<OrdenDTO> ordenesRecientes = ordenService.ObtenerOrdenesRecientes();
+        model.addAttribute("ordenesRecientes", ordenesRecientes);
+
         Map<String,Object> dashboard=ordenService.ObtenerResumenOrden();
-        model.addAttribute("ordenesRecientes",dashboard.get("ordenesRecientes"));
+//        model.addAttribute("ordenesRecientes",dashboard.get("ordenesRecientes"));
         model.addAttribute("cantidadOrdenes",dashboard.get("totalOrdenesActivos"));
 
 
@@ -104,13 +109,11 @@ public class AdminisradorController {
             // Convertir a UsuarioUpdateDTO para el formulario
             UsuarioUpdateDTO usuarioUpdate = UsuarioMapper.toUpdateDTO(usuariodto);
 
-            // Agregar al modelo
             model.addAttribute("usuario", usuarioUpdate);
 
-            // Agregar estados disponibles para el select
-            model.addAttribute("estados", List.of("ACTIVO", "INACTIVO")); // o desde una enum
+            model.addAttribute("estados", List.of("ACTIVO", "INACTIVO"));
 
-            return "administrador/actualizar_usuario"; // nueva página del formulario
+            return "administrador/actualizar_usuario";
 
         } catch (Exception e) {
             return "redirect:/21.pagina_usuarios?error=Usuario no encontrado";

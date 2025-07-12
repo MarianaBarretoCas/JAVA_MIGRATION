@@ -14,10 +14,11 @@
 <header th:insert="Layouts/header_footerDomi :: header"></header>
 
 <main class="cuerpo_indrugs">
+    <div th:insert="Layouts/header_footerDomi :: error"></div>
+
     <div class="contenido">
         <h1>Órdenes</h1>
 
-        <!-- ✅ Verificamos si hay órdenes -->
         <div th:if="${ordenes != null and !ordenes.isEmpty()}">
             <table id="tabla1" class="table">
                 <thead class="table-dark">
@@ -31,7 +32,6 @@
                     <th>Cantidad</th>
                     <th>Medicamentos</th>
                     <th>Estado</th>
-                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,20 +44,16 @@
                     <td th:text="${orden.telefonoOrden}"></td>
                     <td th:text="${orden.cantidad}"></td>
                     <td>
-                        <ul>
+                        <ul class="list-unstyled">
                             <li th:each="medicamento : ${orden.medicamentos}" th:text="${medicamento}"></li>
                         </ul>
                     </td>
                     <td th:text="${orden.estadoOrden}"></td>
-                    <td>
-                        <a th:href="@{/domiciliario/ordenes/entregar/{id}(id=${orden.idOrden})}" class="btn btn-success">Entregar</a>
-                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- ✅ Si no hay órdenes -->
         <div th:if="${ordenes == null or ordenes.isEmpty()}">
             <p>No hay órdenes registradas.</p>
         </div>

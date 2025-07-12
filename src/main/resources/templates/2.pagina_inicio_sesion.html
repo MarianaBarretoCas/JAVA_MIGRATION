@@ -12,12 +12,10 @@
 <body>
 <header th:insert="Layouts/header_footer :: header"></header>
 <main class="cuerpo_indrugs">
+    <div th:insert="Layouts/header_footerPaciente :: error"></div>
     <div id="alert-container"></div>
 
     <div class="contenido">
-        <div th:if="${error}" class="alert alert-danger">
-        <p th:text="${error}"></p>
-        </div>
         <h1>Iniciar Sesión</h1>
 
         <form th:action="@{/login}" id="formuno" class="row mt-3 g-3 needs-validation" novalidate method="post">

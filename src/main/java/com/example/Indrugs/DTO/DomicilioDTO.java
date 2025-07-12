@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
         private LocalDateTime fechaEntregaDomicilio;
         private Long idVehiculo;
         private Long idOrden;
-        private Integer telefonoOrden;
+        private String telefonoOrden;
         private String formulaMedica;
 }
 

@@ -8,6 +8,6 @@ import java.util.List;
 public interface OrdenRepository extends JpaRepository<Orden, Long> {
 
         List<Orden> findByEstadoOrden(String estadoOrden);
-        List<Orden> findTop3ByOrderByIdOrdenDesc();
+        List<Orden> findTop4ByOrderByIdOrdenDesc();
         long countByEstadoOrden(String estadoOrden);
 }

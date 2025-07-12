@@ -16,7 +16,7 @@
 <main class="cuerpo_indrugs">
     <div th:insert="Layouts/header_footerAdmin :: error"></div>
     <div class="contenido">
-        <h1>Gestión de Órdenes - Administrador</h1>
+        <h1>Gestión de Órdenes</h1>
 
         <div th:if="${ordenes != null and !ordenes.isEmpty()}">
             <table id="tabla1" class="table">
@@ -48,7 +48,12 @@
                             <li th:each="medicamento : ${orden.medicamentos}" th:text="${medicamento}"></li>
                         </ul>
                     </td>
-<!--                    <td>-->
+                    <td th:text="${orden.estadoOrden}"></td>
+                    <td>
+                       <a th:href="@{/ordenes/eliminar/{idOrden}(idOrden=${orden.idOrden})}" class="btn btn-danger">Eliminar</a>
+                    </td>
+
+<!--                    <td> -->
 <!--                        <span th:class="${orden.estadoOrden == 'Entregada' ? 'badge bg-success' : 'badge bg-warning'}"-->
 <!--                              th:text="${orden.estadoOrden}"></span>-->
 <!--                    </td>-->
@@ -75,40 +80,40 @@
         </div>
 
         <!-- Estadísticas adicionales para el administrador -->
-        <div class="row mt-4" th:if="${ordenes != null and #lists.isNotEmpty(ordenes)}">
-            <div class="col-md-3">
-                <div class="card bg-primary text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Total Órdenes</h5>
-                        <p class="card-text fs-4" th:text="${#lists.size(ordenes)}">0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-success text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Entregadas</h5>
-                        <p class="card-text fs-4" th:text="${#lists.size(#lists.select(ordenes, o -> o.estadoOrden == 'Entregada'))}">0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-warning text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Pendientes</h5>
-                        <p class="card-text fs-4" th:text="${#lists.size(#lists.select(ordenes, o -> o.estadoOrden != 'Entregada'))}">0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-info text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Medicamentos</h5>
-                        <p class="card-text fs-4" th:text="${#aggregates.sum(ordenes.![cantidad])}">0</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="row mt-4" th:if="${ordenes != null and #lists.isNotEmpty(ordenes)}">-->
+<!--            <div class="col-md-3">-->
+<!--                <div class="card bg-primary text-white">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Total Órdenes</h5>-->
+<!--                        <p class="card-text fs-4" th:text="${#lists.size(ordenes)}">0</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <div class="card bg-success text-white">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Entregadas</h5>-->
+<!--                        <p class="card-text fs-4" th:text="${#lists.size(#lists.select(ordenes, o -> o.estadoOrden == 'Entregada'))}">0</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <div class="card bg-warning text-white">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Pendientes</h5>-->
+<!--                        <p class="card-text fs-4" th:text="${#lists.size(#lists.select(ordenes, o -> o.estadoOrden != 'Entregada'))}">0</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <div class="card bg-info text-white">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Medicamentos</h5>-->
+<!--                        <p class="card-text fs-4" th:text="${#aggregates.sum(ordenes.![cantidad])}">0</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </main>
 

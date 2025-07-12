@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 
@@ -26,23 +27,26 @@ public class OrdenController {
     private MedicamentosService medicamentosService;
     @Autowired
     private ArchivosService archivosService;
-    // Ruta adicional para acceso directo (redirecciona a domiciliario)
-    @GetMapping("/14.pagina_ordenes")
-    public String verOrdenesDirecto(Model model) {
-        model.addAttribute("ordenes", ordenService.listarOrdenes());
-        return "domiciliario/14.pagina_ordenes";
-    }
 
-    // Vista del domiciliario
-    @GetMapping("/domiciliario/14.pagina_ordenes")
-    public String verOrdenesDomiciliario(Model model) {
+    @GetMapping("/14.pagina_ordenes")
+    public String verOrdenesDirecto(Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usuario == null) {
+            return "redirect:/login"; // Si no está logueado
+        }
+
         model.addAttribute("ordenes", ordenService.listarOrdenes());
         return "domiciliario/14.pagina_ordenes";
     }
 
     // Vista del administrador
     @GetMapping("/18.pagina_orden_admin")
-    public String verOrdenesAdmin(Model model) {
+    public String verOrdenesAdmin(Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usuario == null) {
+            return "redirect:/login"; // Si no está logueado
+        }
+
         model.addAttribute("ordenes", ordenService.listarOrdenes());
         return "administrador/18.pagina_orden_admin";
     }
@@ -92,17 +96,15 @@ public class OrdenController {
     @PostMapping("/guardar")
     public String guardarOrden(@ModelAttribute OrdenDTO ordenDTO,
 //                               @RequestParam("formulaFile") MultipartFile formulaFile,
-
                                @RequestParam("idMedicamento") Long idMedicamento,
-                               HttpSession session, Model model) {
+                               HttpSession session, Model model,
+                               RedirectAttributes redirectAttributes) {
         try {
-            // Verificar usuario logueado
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
             if (usuario == null) {
                 return "redirect:/login";
             }
 
-            // Obtener medicamento
             MedicamentoDTO medicamento = medicamentosService.buscarPorIdMedicamento(idMedicamento);
 
             if (medicamento == null) {
@@ -110,20 +112,15 @@ public class OrdenController {
                 return "error";
             }
 
-            // Completar datos de la orden
             ordenDTO.setPacienteNombre(usuario.getNombre());
             ordenDTO.setNombreMedicamento(medicamento.getNombreMedicamento());
             ordenDTO.setEstadoOrden("ACTIVO");
 
-            // Si no se especifica fecha, usar fecha actual + 1 día
             if (ordenDTO.getFechaEntrega() == null) {
                 ordenDTO.setFechaEntrega(LocalDateTime.now().plusDays(1));
             }
-
-            // Guardar orden
             ordenService.crear(ordenDTO,usuario.getIdUsuario(),idMedicamento);
-
-            // Redirigir con mensaje de éxito
+            redirectAttributes.addFlashAttribute("mensaje", "Orden creada exitosamente");
             return "redirect:/8.pagina_med";
 
         } catch (Exception e) {
@@ -134,17 +131,17 @@ public class OrdenController {
         }
     }
 
-     // Marcar orden como entregada desde domiciliario
-    @GetMapping("/domiciliario/ordenes/entregar/{id}")
-    public String entregarOrdenDesdeDomiciliario(@PathVariable Long id) {
-        ordenService.marcarComoEntregada(id);
-        return "redirect:/domiciliario/14.pagina_ordenes";
-    }
+    // Marcar orden como entregada desde domiciliario
+//    @GetMapping("/domiciliario/ordenes/entregar/{id}")
+//    public String entregarOrdenDesdeDomiciliario(@PathVariable Long id) {
+//        ordenService.marcarComoEntregada(id);
+//        return "redirect:/domiciliario/14.pagina_ordenes";
+//    }
 
     // Marcar orden como entregada desde administrador
-    @GetMapping("/administrador/ordenes/entregar/{id}")
-    public String entregarOrdenDesdeAdmin(@PathVariable Long id) {
-        ordenService.marcarComoEntregada(id);
-        return "redirect:/administrador/18.pagina_orden_admin";
+    @GetMapping("/ordenes/eliminar/{idOrden}")
+    public String entregarOrdenDesdeAdmin(@PathVariable Long idOrden) {
+        ordenService.eliminar(idOrden);
+        return "redirect:/18.pagina_orden_admin";
     }
 }

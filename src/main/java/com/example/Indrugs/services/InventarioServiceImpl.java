@@ -35,7 +35,6 @@ public class InventarioServiceImpl implements InventarioService{
 
         Medicamentos medicamentos = medicamentoRepository.findByNombreMedicamento(inventarioDTO.getNombreMedicamento())
                 .orElseThrow(() -> new RuntimeException("Medicamento no encontrado con el nombre" + inventarioDTO.getNombreMedicamento()));
-
         boolean existeEnInventario = inventarioRepository.existsByIdMedicamento_IdMedicamento(medicamentos.getIdMedicamento());
         if (existeEnInventario) {
             throw new RuntimeException("El medicamento ya se encuentra registrado en el inventario.");

@@ -1,10 +1,12 @@
 package com.example.Indrugs.services;
 
 import com.example.Indrugs.DTO.OrdenDTO;
+import com.example.Indrugs.entities.Domicilio;
 import com.example.Indrugs.entities.Medicamentos;
 import com.example.Indrugs.entities.Orden;
 import com.example.Indrugs.entities.Usuario;
 import com.example.Indrugs.mapper.OrdenMapper;
+import com.example.Indrugs.repositorios.DomicilioRepository;
 import com.example.Indrugs.repositorios.MedicamentoRepository;
 import com.example.Indrugs.repositorios.OrdenRepository;
 import com.example.Indrugs.repositorios.UsuarioRepository;
@@ -21,11 +23,14 @@ public class OrdenServiceImpl implements OrdenService {
     private final OrdenRepository ordenRepository;
     private final MedicamentoRepository medicamentoRepository;
     private final UsuarioRepository usuarioRepository;
+    private final DomicilioRepository domicilioRepository;
 
-    public OrdenServiceImpl(OrdenRepository ordenRepository, MedicamentoRepository medicamentoRepository, UsuarioRepository usuarioRepository) {
+    public OrdenServiceImpl(OrdenRepository ordenRepository, MedicamentoRepository medicamentoRepository, UsuarioRepository usuarioRepository, DomicilioRepository domicilioRepository) {
         this.ordenRepository = ordenRepository;
         this.medicamentoRepository = medicamentoRepository;
         this.usuarioRepository = usuarioRepository;
+        this.domicilioRepository = domicilioRepository;
+
     }
 
     @Override
@@ -55,11 +60,26 @@ public class OrdenServiceImpl implements OrdenService {
                 .orElseThrow(() -> new RuntimeException("Medicamento no encontrado"));
         orden.setMedicamentos(List.of(medicamento));
         ordenRepository.save(orden);
+
+        crearDomicilioConOrden(orden);
+
     }
 
     @Override
-    public void eliminar(Long idOrden) {
+    public void crearDomicilioConOrden(Orden orden) {
+        Domicilio domicilio = new Domicilio();
+        domicilio.setOrden(orden);
+        domicilio.setUbicacionDomicilio(orden.getDireccionOrden());
+        domicilio.setEstadoDomicilio("EN ESPERA");
+        domicilio.setFechaEntregaDomicilio(orden.getFechaEntrega());
 
+        domicilioRepository.save(domicilio);
+    }
+
+
+    @Override
+    public void eliminar(Long idOrden) {
+        ordenRepository.deleteById(idOrden);
     }
 
     @Override
@@ -69,7 +89,7 @@ public class OrdenServiceImpl implements OrdenService {
 
     @Override
     public List<OrdenDTO> ObtenerOrdenesRecientes() {
-        List<Orden> domicilio = ordenRepository.findTop3ByOrderByIdOrdenDesc();
+        List<Orden> domicilio = ordenRepository.findTop4ByOrderByIdOrdenDesc();
         return domicilio.stream()
                 .map(OrdenMapper::toDTO)
                 .collect(Collectors.toList());
@@ -85,13 +105,11 @@ public class OrdenServiceImpl implements OrdenService {
         dashboard.put("totalOrdenesActivos", ordenesActivos);
 
 
-        List<Orden> top3Orden = ordenRepository.findTop3ByOrderByIdOrdenDesc();
-        dashboard.put("ordenesRecientes", top3Orden);
+        List<Orden> top4Orden = ordenRepository.findTop4ByOrderByIdOrdenDesc();
+        dashboard.put("ordenesRecientes", top4Orden);
 
         return dashboard;
     }
-
-
 
 
 

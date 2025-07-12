@@ -43,6 +43,9 @@ public class Orden {
     @Column(name ="FORMULA_MEDICA")
     private String formulaMedica;
 
+    @OneToOne(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Domicilio domicilio;
+
     @ManyToMany
     @JoinTable(
             name = "ordenes_has_medicamentos",

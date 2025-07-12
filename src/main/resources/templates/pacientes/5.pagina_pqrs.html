@@ -13,17 +13,16 @@
 <header th:insert="Layouts/header_footerPaciente :: header"></header>
 
 <main class="cuerpo_indrugs">
+    <div th:insert="Layouts/header_footerPaciente :: error"></div>
     <div class="contenido">
         <h1 class="titulo_pqrs">Formulario de PQRS</h1>
         <h2 class="solicitud">Enviar una solicitud</h2>
         <h3 class="solicitud">Todos los campos son obligatorios</h3>
 
-        <!-- Corrección: Se eliminó "/paciente" del action -->
         <form method="post" th:action="@{/guardar-pqrs}"
               th:object="${pqrs}"
               class="row mx-auto mt-3 g-3 needs-validation" novalidate>
 
-            <!-- Usuario logueado -->
             <input type="hidden" th:field="*{usuarioid}" th:value="${usuarioLogueado.idUsuario}" />
 
             <h4 class="solicitud">Elija un tipo de solicitud a continuación...</h4>
@@ -46,9 +45,6 @@
                 <div class="valid-feedback">Correcto.</div>
                 <div class="invalid-feedback">Por favor ingrese su motivo.</div>
             </div>
-
-            <!-- Mostrar mensaje de éxito -->
-            <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
 
             <div class="col-12">
                 <button class="btn btn-primary" type="submit">Enviar PQRS</button>

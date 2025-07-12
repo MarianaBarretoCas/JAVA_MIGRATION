@@ -24,7 +24,7 @@ public class PQRScontroller {
     public String mostrarFormulario(Model model, HttpSession session) {
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
             if (usuario == null) {
-                return "redirect:/2.pagina_inicio_sesion";
+                return "redirect:/login";
             }
             model.addAttribute("pqrs", new PQRSDTO());
         model.addAttribute("usuarioLogueado", session.getAttribute("usuarioLogueado"));
@@ -38,7 +38,7 @@ public class PQRScontroller {
                               RedirectAttributes redirectAttributes) {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
         if (usuario == null) {
-            return "redirect:/2.pagina_inicio_sesion";
+            return "redirect:/login";
         }
         pqrsService.crear(dto, usuario.getIdUsuario());
         redirectAttributes.addFlashAttribute("mensaje", "¡PQRS enviada correctamente!");

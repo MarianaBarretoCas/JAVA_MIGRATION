@@ -25,7 +25,7 @@ public class CrearUserController {
 
     @GetMapping({"/registrarse"})
     public String mostrarRegistrar(Model model){
-        //form vacio a la vista
+
         model.addAttribute("usuarioNuevo", new UsuarioCreateDTO());
         return "6.pagina_registrar_usuario";
     }
@@ -37,27 +37,22 @@ public class CrearUserController {
                                Model model,
                                RedirectAttributes redirectAttributes){
 
-      //primer campo de validar
       if (bindingResult.hasErrors()){
           return "6.pagina_registrar_usuario";
       }
 
-      //Manjea de errores
         try {
             if (userService.existsByCorreo(userCreate.getCorreo())) {
                 model.addAttribute("error", "El correo ya está registrado");
                 return "6.pagina_registrar_usuario";
             }
 
-            // Crear el usuario
             userService.crear(userCreate);
-
-            // Mensaje de registro correcto
             redirectAttributes.addFlashAttribute("mensaje", "Usuario registrado exitosamente");
             return "redirect:/login";
 
         } catch (Exception e) {
-            // Manejo de errores
+
             model.addAttribute("error", "Error al registrar usuario: " + e.getMessage());
             return "6.pagina_registrar_usuario";
         }

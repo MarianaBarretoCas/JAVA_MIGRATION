@@ -37,8 +37,8 @@
                 <div class="card">
                     <a th:href="@{/15.pagina_domicilio_domi}">
                         <div>
-                            <h2 th:text="${totalDomiciliosActivos}">0</h2>
-                            <p>Domicilios Activos</p>
+                            <span class="card_numeros" th:text="${totalDomiciliosActivos}">0</span>
+                            <span class="card_nombre">Domicilios</span>
                         </div>
                         <div class="card_icono">
                             <img th:src="@{/Iconos/icons8-entrega-puerta-a-puerta-100.png}" alt="Domicilios">
@@ -59,7 +59,7 @@
                 <div class="card">
                     <a th:href="@{/14.pagina_ordenes}">
                         <div>
-                            <span class="card_numeros">4</span><br>
+                            <span class="card_numeros" th:text="${cantidadOrdenes}">0</span><br>
                             <span class="card_nombre">Órdenes</span>
                         </div>
                         <div class="card_icono">
@@ -70,6 +70,7 @@
             </div>
 
             <div class="contenido_dash">
+
                 <div class="ordenes_recientes">
                     <div class="cabeza1">
                         <h2>Órdenes recientes</h2>
@@ -81,35 +82,17 @@
                         <thead class="table-dark">
                         <tr>
                             <th>ID</th>
-                            <th>Usuarios</th>
-                            <th>EPS</th>
+                            <th>Usurios</th>
                             <th>Fecha de orden</th>
                             <th>Estado de orden</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="table" id="cuerpo_tabla">
-                            <td>01</td>
-                            <td>Camila Peña</td>
-                            <td>Sanitas</td>
-                            <td>2024-12-05 11:54:57</td>
-                            <td>
-                                <select name="estado" id="estado_vehi" class="form-select">
-                                    <option value="1">Activo</option>
-                                    <option value="2">Inactivo</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>02</td>
-                            <td>Juan Palencia</td>
-                            <td>Salud Total</td>
-                            <td>2024-12-01 11:55:01</td>
-                            <td>
-                                <select name="estado" id="estado_orden" class="form-select">
-                                    <option value="1">Activo</option>
-                                    <option value="2">Inactivo</option>
-                                </select>
+                        <tr class="table" id="cuerpo_tabla" th:each="orden : ${ordenesRecientes}">
+                            <td th:text="${orden.idOrden}">ID</td>
+                            <td th:text="${orden.pacienteNombre}">Usuario</td>
+                            <td th:text="${orden.fechaEntrega}">FechaEntregaOrden</td>
+                            <td th:text="${orden.estadoOrden}">Estado</td>
                             </td>
                         </tr>
                         </tbody>

@@ -51,6 +51,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         Rol rol = rolRepository.findById(userCreate.getRol())
                 .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
         usuario.setRol(rol);
+        usuario.setEstado("ACTIVO");
         usuarioRepository.save(usuario);
     }
 
@@ -130,7 +131,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         resumen.put("ACTIVOS", contarUsuariosActivos());
         return resumen;
     }
-
+//
     @Override
     public List<UsuarioDTO> obtenerUsuariosRecientes() {
         List<Usuario> usuarios = usuarioRepository.findTop5ByOrderByIdUsuarioDesc();
