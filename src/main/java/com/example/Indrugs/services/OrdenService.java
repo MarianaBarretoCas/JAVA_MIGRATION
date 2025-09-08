@@ -8,6 +8,7 @@ import java.util.Map;
 
 public interface OrdenService {
     List<OrdenDTO> listarOrdenes();
+    List<OrdenDTO> listarOrdenesP(Long idUsuario);
     void marcarComoEntregada(Long idOrden);
     void crear (OrdenDTO ordenDTO,Long idUsuario,Long idMedicameto);
     void eliminar (Long idOrden);

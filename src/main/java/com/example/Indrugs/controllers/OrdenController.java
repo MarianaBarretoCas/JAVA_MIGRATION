@@ -38,6 +38,16 @@ public class OrdenController {
         model.addAttribute("ordenes", ordenService.listarOrdenes());
         return "domiciliario/14.pagina_ordenes";
     }
+    @GetMapping("/16.pagina_carrito_med")
+    public String verOrdenesPaciente(Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usuario == null) {
+            return "redirect:/login"; // Si no está logueado
+        }
+
+        model.addAttribute("ordenes", ordenService.listarOrdenesP(usuario.getIdUsuario()));
+        return "pacientes/16.pagina_carrito_med";
+    }
 
     // Vista del administrador
     @GetMapping("/18.pagina_orden_admin")
@@ -121,7 +131,7 @@ public class OrdenController {
             }
             ordenService.crear(ordenDTO,usuario.getIdUsuario(),idMedicamento);
             redirectAttributes.addFlashAttribute("mensaje", "Orden creada exitosamente");
-            return "redirect:/8.pagina_med";
+            return "redirect:/16.pagina_carrito_med";
 
         } catch (Exception e) {
             model.addAttribute("error", "Error al guardar la orden: " + e.getMessage());

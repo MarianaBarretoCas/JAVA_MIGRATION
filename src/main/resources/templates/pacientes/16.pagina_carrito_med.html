@@ -20,50 +20,50 @@
   <div class="contenido">
     <h1 id="titulo_control">Medicamentos solicitados</h1>
 
-    <div th:if="${domicilios != null and !domicilios.isEmpty()}">
+    <div th:if="${ordenes != null and !ordenes.isEmpty()}">
       <table id="tabla1" class="table">
         <thead class="table-dark">
         <tr>
           <th>ID</th>
-          <th>Medicamento</th>
-          <th>Cantidad</th>
-          <th>Fecha de Entrega</th>
-          <th>Estado</th>
-          <th>Fórmula Médica</th>
+          <th>Nombre</th>
           <th>EPS</th>
-          <th>Placa Vehículo</th>
-          <th>Dirección Entrega</th>
+          <th>Fecha de entrega</th>
+          <th>Dirección</th>
           <th>Teléfono</th>
+          <th>Cantidad</th>
+          <th>Medicamentos</th>
+          <th>Estado</th>
           <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="domicilio : ${domicilios}">
-          <td th:text="${domicilio.idDomicilio}"></td>
-          <td th:text="${domicilio.orden.medicamento.nombreMedicamento}"></td>
-          <td th:text="${domicilio.orden.cantidad}"></td>
-          <td th:text="${#temporals.format(domicilio.fechaEntregaDomicilio, 'yyyy-MM-dd HH:mm')}"></td>
-          <td th:text="${domicilio.estadoDomicilio}"></td>
+        <tr th:each="orden : ${ordenes}">
+          <td th:text="${orden.idOrden}"></td>
+          <td th:text="${orden.pacienteNombre}"></td>
+          <td th:text="${orden.epsOrden}"></td>
+          <td th:text="${#temporals.format(orden.fechaEntrega, 'yyyy-MM-dd HH:mm')}"></td>
+          <td th:text="${orden.direccionOrden}"></td>
+          <td th:text="${orden.telefonoOrden}"></td>
+          <td th:text="${orden.cantidad}"></td>
           <td>
-            <a th:href="@{'/formularios/' + ${domicilio.formulaMedica}}" target="_blank">Ver</a>
+            <ul class="list-unstyled">
+              <li th:each="medicamento : ${orden.medicamentos}" th:text="${medicamento}"></li>
+            </ul>
           </td>
-          <td th:text="${domicilio.epsDomicilio}"></td>
-          <td th:text="${domicilio.vehiculo.placaVehiculo}"></td>
-          <td th:text="${domicilio.ubicacionDomicilio}"></td>
-          <td th:text="${domicilio.telefonoDomicilio}"></td>
+          <td th:text="${orden.estadoOrden}"></td>
           <td>
-            <a th:href="@{/domicilios/eliminar/{id}(id=${domicilio.idDomicilio})}" class="btn btn-danger">Eliminar</a>
+            <a th:href="@{/ordenes/eliminar/{idOrden}(idOrden=${orden.idOrden})}" class="btn btn-danger">Eliminar</a>
           </td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <div th:if="${controles == null or controles.isEmpty()}">
-      <p>No hay medicamentos registrados.</p>
+    <div th:if="${ordenes == null or #lists.isEmpty(ordenes)}" class="alert alert-info text-center">
+      <i class="fas fa-info-circle"></i> No hay órdenes registradas en el sistema.
     </div>
 
-    <a th:href="@{/pacientes/3.pagina_de_control}" class="btn btn-primary">Nuevo medicamento</a>
+    <a th:href="@{/8.pagina_med}" class="btn btn-primary">Nuevo medicamento</a>
   </div>
 </main>
 

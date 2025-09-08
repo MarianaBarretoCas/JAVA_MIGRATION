@@ -40,6 +40,14 @@ public class OrdenServiceImpl implements OrdenService {
     }
 
     @Override
+    public List<OrdenDTO> listarOrdenesP(Long idUsuario) {
+        List<Orden> ordenes = ordenRepository.findByPaciente_IdUsuario(idUsuario);
+        return ordenes.stream()
+                .map(OrdenMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void marcarComoEntregada(Long idOrden) {
         Orden orden = ordenRepository.findById(idOrden)
                 .orElseThrow(() -> new RuntimeException("Orden no encontrada con ID: " + idOrden));
