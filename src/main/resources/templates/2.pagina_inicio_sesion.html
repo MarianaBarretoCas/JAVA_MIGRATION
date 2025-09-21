@@ -31,8 +31,8 @@
             </div>
 
             <div class="col-12">
-                <label for="contraseña">Contraseña</label>
-                <input id="contraseña" class="form-control" name="password" type="password" required minlength="8" />
+                <label for="password">Contraseña</label>
+                <input id="password" class="form-control" name="password" type="password" required minlength="8" />
                 <div class="valid-feedback">
                     Hemos registrado su contraseña.
                 </div>
@@ -41,18 +41,17 @@
                 </div>
             </div>
 
-            <div class="col-12">
+            <div class="col-13">
                 <button class="btn btn-primary" type="submit">Iniciar sesión</button>
             </div>
 
-            <a th:href="@{/registrarse}" class="crear_cuenta">
-                <button class="btn btn-primary" type="button">Crear cuenta</button>
-            </a>
+            <a th:href="@{/registrarse}" class="btn btn-primary">Crear cuenta</a>
         </form>
 
     </div>
 </main>
 <footer th:insert="Layouts/header_footer :: footer">
+</footer>
     <script>
         // Validación Bootstrap
         (() => {
@@ -71,9 +70,7 @@
                 }, false);
             });
         })();
-    </script>
 
-    <script>
         const params = new URLSearchParams(window.location.search);
         const error = params.get('error');
         const alertContainer = document.getElementById('alert-container');
@@ -102,6 +99,7 @@
               `;
         }
     </script>
-</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
 </body>
 </html>
