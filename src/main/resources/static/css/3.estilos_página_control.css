@@ -1,171 +1,116 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-
-
-#titulo_control{
-    text-align: center;
+:root {
+    --background-color: linear-gradient(90deg, #022c5c, #104585);
+    --text-color: #022c5c;
+    --iconos: #063163;
+    --lineas: #adc8fa;
+    --table-header: #f8f9fa;
+    --table-hover: #f1f4f9;
+    --border-color: #e9ecef;
 }
-.row{
-    border:1px solid black;
-    width: 60%;
-    display: flexbox;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 2px 9px 2px rgba(139, 137, 137, 0.5);
-}  
-h2{
-    display: flex;
-    justify-content: center;
-} 
-    input[type=text]:focus {
-        border-color: #cfeecf;
-        outline: none;
-        box-shadow: 0 0 5px #9ff39f
-    }
-    .form-check{
-        margin-right: 20px;
-        margin-left: 10px;
-    }
-    input[type="datetime-local"] {
-        width: 100%;
-        padding: 4px 7px;
-        font-size: 15px;
-        color: #000000;
-        border-radius: 4px;
-        box-sizing: border-box;
-        transition: border-color 0.3s ease, background-color 0.3s ease;
-    }
-        input[type="datetime-local"]:focus {
-            border-color: #cfeecf;
-            outline: none;
-            box-shadow: 0 0 5px #abebab
-        }
 
-#problema {
-    width: 100%;
-    height: 40px;
-    padding: 10px 18px;
-    box-sizing: border-box;
-    border-radius: 4px;
-    background-color: #ffffff;
-  }
-    #problema:focus{
-        border-color: #cfeecf;
-        outline: none;
-        box-shadow: 0 0 5px #abebab
-    }
-
-            #cod_med{
-                width: 100%;
-                padding: 3px 6px;
-                font-size: 15px;
-                color: #000000;
-                border-radius: 4px;
-                box-sizing: border-box;
-                transition: border-color 0.3s ease, background-color 0.3s ease;
-            }
-            #cod_med:focus{
-                border-color: #cfeecf;
-                outline: none;
-                box-shadow: 0 0 5px #abebab
-            }
-
-            #nombre_med{
-                width: 100%;
-                padding: 3px 6px;
-                font-size: 15px;
-                color: #000000;
-                background-color: #ffffff;;
-                border-radius: 4px;
-                box-sizing: border-box;
-                transition: border-color 0.3s ease, background-color 0.3s ease;
-            }
-            #nombre_med:focus{
-                border-color: #cfeecf;
-                outline: none;
-                box-shadow: 0 0 5px #abebab
-            }
-
-
-    #numero_cantidad{
-        width: 100%;
-        padding: 3px 6px;
-        font-size: 15px;
-        color: #000000;
-        border-radius: 4px;
-        box-sizing: border-box;
-        transition: border-color 0.3s ease, background-color 0.3s ease;
-    }
-        
-        #numero_cantidad:focus{
-            border-color: #cfeecf;
-            outline: none;
-            box-shadow: 0 0 5px #abebab
-        }
-
-    #descripcion{
-        width: 100%;
-        height: 20px;
-        padding: 10px 18px;
-        box-sizing: border-box;
-        border-radius: 4px;
-      }
-        #descripcion:focus{
-            border-color: #cfeecf;
-            outline: none;
-            box-shadow: 0 0 5px #abebab
-        }
-    
-    #cantidad_frecuencia{
-        width: 100%;
-        padding: 3px 6px;
-        font-size: 15px;
-        color: #000000;
-        background-color: #ffffff;;
-        border-radius: 4px;
-        box-sizing: border-box;
-        transition: border-color 0.3s ease, background-color 0.3s ease;
-        }
-            #cantidad_frecuencia:hover {
-                border-color: #888;
-                background-color: #f1f1f1;
-            }
-            #cantidad_frecuencia:focus{
-                border-color: #cfeecf;
-                outline: none;
-                box-shadow: 0 0 5px #abebab
-            }
-    
-    #alarma{
-        width: 100%;
-        height: 27px;
-        padding: 3px 6px;
-        font-size: 15px;
-        color: #000000;
-        background-color: #ffffff;;
-        border-radius: 4px;
-        box-sizing: border-box;
-        transition: border-color 0.3s ease, background-color 0.3s ease;
-        }
-            #alarma:hover {
-                border-color: #888;
-                background-color: #f1f1f1;
-            }
-            #alarma:focus{
-                border-color: #b9e7b9;
-                outline: none;
-                box-shadow: 0 0 5px #abebab
-            }
-            
 .btn {
-    width: 100%;
-    background-color: #23c72b;
-    color: white;
-    padding: 14px 20px;
+    width: 70%;
+    background: rgb(30 119 249 / 31%);
+    color: var(--text-color)
+    padding: 12px 18px;
     margin: 8px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
   }
   .btn:hover {
-    background-color: #25b62c;
+    background-color: #00bcd4;
   }
+
+.table-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.table-header {
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+
+.table-responsive {
+    background: rgb(255, 255, 255);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.custom-table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.custom-table thead th {
+    background: var(--table-header);
+    color: var(--text-color);
+    font-weight: 600;
+    padding: 1rem;
+    border-bottom: 2px solid var(--border-color);
+    text-transform: uppercase;
+    font-size: 0.80rem;
+    letter-spacing: 0.5px;
+}
+
+.custom-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.custom-table tbody tr:hover {
+    background-color: var(--table-hover);
+}
+
+.custom-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+
+/* Responsive */
+@media (max-width: 992px) {
+    .table-container {
+        margin: 1rem;
+        padding: 0;
+    }
+
+    .custom-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .custom-table thead th,
+    .custom-table td {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+    }
+}

@@ -61,11 +61,12 @@ public class OrdenController {
         return "administrador/18.pagina_orden_admin";
     }
 
-    @GetMapping("/nuevo")
-    public String mostrarformulario(@RequestParam("idMedicamento") Long idMedicamento,
-                                    @RequestParam("cantidad") Integer cantidad,
+    @GetMapping("/4.pagina_domicilio")
+    public String mostrarformulario(@RequestParam(value = "idMedicamento", required = false) Long idMedicamento,
+                                    @RequestParam(value = "cantidad", required = false) Integer cantidad,
                                     HttpSession session, Model model)
-    {try {
+    {
+        try {
         // Obtener usuario logueado usando tu método
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
         if (usuario == null) {

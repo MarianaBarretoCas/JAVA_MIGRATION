@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Domicilio</title>
     <script src="https://kit.fontawesome.com/14122cd484.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/1.estilos_pagina_inicio.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/4.estilos_pagina_domicilio.css}">
 </head>
 
@@ -24,7 +28,7 @@
 
             <input type="hidden" th:field="*{paciente}" th:value="${usuarioLogueado.idUsuario}" />
             <input type="hidden" name="idMedicamento" th:value="${medicamento.idMedicamento}"/>
-<!--            <input type="hidden" th:field="*{idMedicamento}" th:value="${medicamento.idMedicamento}" />-->
+<!--        <input type="hidden" th:field="*{idMedicamento}" th:value="${medicamento.idMedicamento}" />-->
             <input type="hidden" th:field="*{pacienteNombre}" />
             <input type="hidden" th:field="*{nombreMedicamento}" />
             <input type="hidden" th:field="*{cantidad}" />
@@ -72,19 +76,46 @@
 <footer th:insert="Layouts/header_footerPaciente :: footer"></footer>
 
 <script>
-    (() => {
-        'use strict';
-        const forms = document.querySelectorAll('.needs-validation');
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
+
+    document.getElementById("formuno").addEventListener("submit", function(event) {
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        let form = this;
+
+        // eliminar inputs previos si los hay
+        let oldInputs = document.querySelectorAll(".carrito-hidden");
+        oldInputs.forEach(e => e.remove());
+
+        carrito.forEach((item, index) => {
+            let inputId = document.createElement("input");
+            inputId.type = "hidden";
+            inputId.name = `medicamentos[${index}].idMedicamento`;
+            inputId.value = item.idMedicamento;
+            inputId.classList.add("carrito-hidden");
+            form.appendChild(inputId);
+
+            let inputCantidad = document.createElement("input");
+            inputCantidad.type = "hidden";
+            inputCantidad.name = `medicamentos[${index}].cantidad`;
+            inputCantidad.value = item.cantidad;
+            inputCantidad.classList.add("carrito-hidden");
+            form.appendChild(inputCantidad);
         });
-    })();
+
+      (() => {
+          'use strict';
+          const forms = document.querySelectorAll('.needs-validation');
+          Array.from(forms).forEach(form => {
+              form.addEventListener('submit', event => {
+                  if (!form.checkValidity()) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                  }
+                  form.classList.add('was-validated');
+              }, false);
+          });
+      })();
+
 </script>
+<script th:src="@{/JAVA_SCRIPT/carrito.js}"></script>
 </body>
 </html>

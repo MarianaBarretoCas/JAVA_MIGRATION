@@ -6,6 +6,7 @@ import com.example.Indrugs.entities.Usuario;
 import com.example.Indrugs.services.InventarioService;
 import com.example.Indrugs.services.MedicamentosService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,18 @@ public class InventarioController {
 
         return "administrador/17.pagina_inventario";
     }
+
+    @GetMapping("/api/inventario/stock/{idMedicamento}")
+    @ResponseBody
+    public ResponseEntity<Integer> obtenerStock(@PathVariable Long idMedicamento) {
+        try {
+            InventarioDTO inventario = inventarioService.buscarPorId(idMedicamento);
+            return ResponseEntity.ok(inventario.getStock());
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(0); // 0 si no existe
+        }
+    }
+
 
     @GetMapping("/19.pagina_agregar_med")
     public String mostrarFormulario(HttpSession session, Model model){

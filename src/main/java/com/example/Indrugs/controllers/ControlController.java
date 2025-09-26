@@ -33,24 +33,15 @@ public class ControlController {
         if (usuario == null) {
             return "redirect:/login"; // Si no está logueado
         }
-
+        //Controles tabla
         List<ControlDTO> controles = controlService.obtenerTodosLosControlesporUsuario(usuario.getIdUsuario());
         model.addAttribute("controles", controles);
 
-        return "pacientes/24.pagina_control";
-    }
-
-    @GetMapping("/3.pagina_de_control")
-    public String mostrarFormularioAgregar(Model model, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-
-        if (usuario == null) {
-            return "redirect:/login"; // Si no está logueado
-        }
+        //formulario nuevo control
         model.addAttribute("usuarioLogueado",  usuario);
         model.addAttribute("medicamentos", medicamentosService.readAdmin());
         model.addAttribute("control", new ControlDTO());
-        return "pacientes/3.pagina_de_control";
+        return "pacientes/24.pagina_control";
     }
 
     @PostMapping("/agregar_control")
