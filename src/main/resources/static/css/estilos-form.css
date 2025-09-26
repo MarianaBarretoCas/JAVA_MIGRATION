@@ -1,0 +1,26 @@
+body {
+    background: #f1f1f1;
+}
+
+.contenedor-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Open Sans', sans-serif;
+}
+
+h2 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+
+}
+
+.custom-form {
+    width: 90%;
+    color: var(--text-color);
+    margin: auto;
+}
