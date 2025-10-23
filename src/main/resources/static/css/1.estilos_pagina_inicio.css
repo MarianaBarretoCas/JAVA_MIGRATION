@@ -266,6 +266,9 @@ img{
     background-color: rgb(107, 209, 12); /* El color de fondo*/
 
 }
+.btnform{
+    width: 50%;
+}
 .imagenes_eps{
     border: 2px solid rgb(252, 251, 251);/*Es lo grueso de la imagen*/
     display: flex;/*ubicacion*/
@@ -333,6 +336,14 @@ img{
 	font-family:Quicksand;
 	text-align: center;
 }
+
+.formularios{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    }
 
 @media only screen and (max-width:767px){
     .pie-pagina{

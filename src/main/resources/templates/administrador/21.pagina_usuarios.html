@@ -17,8 +17,8 @@
 	<div th:insert="Layouts/header_footerAdmin :: error"></div>
 	<div class="contenido">
 		<h1 class="tabla_usuarios">USUARIOS</h1>
-
-		<form method="get" th:action="@{/21.pagina_usuarios}" id="filtros" class="row mt-3 g-3 needs-validation">
+		<div class="formularios">
+		<form method="get" th:action="@{/21.pagina_usuarios}" id="filtros" class="row mt-0 g-3 needs-validation">
 			<section class="filtrar-usuarios">
 				<label for="rol">Filtro por rol:</label>
 				<select name="rol" id="rol">
@@ -38,6 +38,12 @@
 				<button type="submit" class="butn_filtro">Filtrar</button>
 			</section>
 		</form>
+		<form th:action="@{/export/usuarios_registrados}" method="get" style="margin: 1rem 1rem 1rem;">
+			<button type="submit" class="btn btnform">
+				<i class="fas fa-file-pdf"></i> Exportar PDF
+			</button>
+		</form>
+		</div>
 
 		<div th:if="${usuarios != null and !usuarios.isEmpty()}">
 			<table id="tabla1" class="table">
